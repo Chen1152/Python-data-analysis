@@ -1,0 +1,32 @@
+# 第1题 
+一元线性回归拟合值：
+$$\hat y_i = \hat\beta_0+\hat\beta_1 x_i$$
+残差定义：
+$$e_i = y_i-\hat y_i$$
+最小二乘目标函数：
+$$SSE=\sum_{i=1}^n (y_i-\hat\beta_0-\hat\beta_1 x_i)^2$$
+
+对截距项$\hat\beta_0$求偏导并令导数等于0：
+$$\frac{\partial SSE}{\partial \hat\beta_0}=-2\sum_{i=1}^n(y_i-\hat\beta_0-\hat\beta_1 x_i)=0$$
+$$\sum_{i=1}^n(y_i-\hat y_i)=\sum_{i=1}^n e_i=0$$
+
+对斜率项$\hat\beta_1$求偏导并令导数等于0：
+$$\frac{\partial SSE}{\partial \hat\beta_1}=-2\sum_{i=1}^n x_i(y_i-\hat\beta_0-\hat\beta_1 x_i)=0$$
+$$\sum_{i=1}^n x_i(y_i-\hat y_i)=\sum_{i=1}^n x_i e_i=0$$
+
+
+---
+# 第2题 思考题：$R^2$ 与调整$R^2_{adj}$
+公式：
+$$R^2 = 1-\frac{RSS}{TSS},\quad R^2_{adj}=1-\frac{RSS/(n-p-1)}{TSS/(n-1)}$$
+- $RSS$：残差平方和；$TSS$：总平方和；
+- $n$：样本量；$p$：自变量个数；$n-p-1$：残差自由度。
+
+1. **$R^2$的变化**
+$R^2$只对比残差平方和$RSS$，**不考虑自变量数量，没有自由度惩罚**。
+新增纯随机无关特征时，模型至少可以把新增变量系数取0，$RSS$不变；数值优化算法有可能小幅降低$RSS$。
+因此$R^2$保持不变或者上升。
+
+2. **$R^2_{adj}$的变化**
+$R^2_{adj}$对残差项除以**残差自由度$n-p-1$**，会惩罚增加自变量带来的自由度损失。
+加入无关变量，自变量个数$p$变大，残差自由度$n-p-1$减小；此时$RSS$几乎不变，$\frac{RSS}{n-p-1}$变大，最终$R^2_{adj}$下降。
